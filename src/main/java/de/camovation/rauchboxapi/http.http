@@ -1,0 +1,43 @@
+POST http://localhost:8080/v1/customers
+Content-Type: application/json
+
+{
+  "firstname": "Test",
+  "lastname": "Toker",
+  "email": "ertan@ertan-toker.de"
+}
+
+###
+GET http://localhost:8080/v1/adressen/20
+Content-Type: application/json
+
+### List
+GET http://localhost:8080/v1/kundendaten/all?page=0&size=10
+Content-Type: application/json
+
+### Pagination
+GET http://localhost:8080/v1/customers?page=0&size=10
+Content-Type: application/json
+
+### PUT
+PUT http://localhost:8080/v1/customers/e23a7d2b-5fee-4057-bae3-11ee2e45201b
+Content-Type: application/json
+
+{
+  "firstname": "Updated Firstname",
+  "lastname": "Updated Lastname",
+  "email": "email@mail.de"
+}
+
+### PATCH
+PATCH http://localhost:8080/v1/customers/e23a7d2b-5fee-4057-bae3-11ee2e45201b
+Content-Type: application/json
+
+{
+  "lastname": "New Lastname"
+
+}
+
+### DELETE
+DELETE http://localhost:8080/v1/customers/e23a7d2b-5fee-4057-bae3-11ee2e45201b
+Content-Type: application/json

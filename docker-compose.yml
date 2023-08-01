@@ -1,0 +1,56 @@
+version: '3.1'
+
+services:
+
+  stats-db:
+    container_name: stats-db
+    image: mariadb:10.6.4-focal
+    restart: unless-stopped
+    ports:
+      - 3306:3306
+    env_file: .env
+    environment:
+      MYSQL_ROOT_PASSWORD: '${MYSQL_ROOT_PASSWORD}'
+      MYSQL_DATABASE: '${MYSQL_DATABASE}'
+      MYSQL_USER: '${MYSQL_USER}'
+      MYSQL_PASSWORD: '${MYSQL_PASSWORD}'
+    volumes:
+      - db-data:/var/lib/mysql
+    networks:
+      - spring-network
+
+  phpmyadmin:
+    depends_on:
+      - stats-db
+    image: phpmyadmin/phpmyadmin
+    restart: unless-stopped
+    ports:
+      - 5005:80
+    env_file: .env
+    environment:
+      PMA_HOST: stats-db
+      MYSQL_ROOT_PASSWORD: '${MYSQL_ROOT_PASSWORD}'
+    networks:
+      - spring-network
+  app:
+    container_name: rauchboxapi
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: rauchboxapi:1.0.0
+    restart: on-failure
+    ports:
+      - 4001:8080
+    volumes:
+      - "/usercode/:/src"
+    depends_on:
+      - stats-db
+    networks:
+      - spring-network
+
+volumes:
+  db-data:
+
+networks:
+  spring-network:
+    driver: bridge
