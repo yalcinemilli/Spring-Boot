@@ -22,13 +22,13 @@ public class LeitstellenService {
 
     public Leitstellen updateLeitstelle(int id, Leitstellen leitstelle) {
         Leitstellen oldLeitstelle = leitstellenRepository.findById(id);
-        if (oldLeitstelle.getLeitstelle() != null) {
+        if (leitstelle.getLeitstelle() != null) {
             oldLeitstelle.setLeitstelle(leitstelle.getLeitstelle());
         }
-        if (oldLeitstelle.getKennwort() != null) {
+        if (leitstelle.getKennwort() != null) {
             oldLeitstelle.setKennwort(leitstelle.getKennwort());
         }
-        if (oldLeitstelle.getTelefon() != null) {
+        if (leitstelle.getTelefon() != null) {
             oldLeitstelle.setTelefon(leitstelle.getTelefon());
         }
 

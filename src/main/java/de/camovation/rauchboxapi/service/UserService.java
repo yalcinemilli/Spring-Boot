@@ -5,10 +5,12 @@ import org.springframework.stereotype.Service;
 
 import de.camovation.rauchboxapi.models.User;
 import de.camovation.rauchboxapi.repository.UserRepository;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 
 @Service
 @RequiredArgsConstructor
+@Transactional
 public class UserService {
 
     private final UserRepository userRepository;
@@ -39,22 +41,27 @@ public class UserService {
     }
     public User updateUser(int id, User user) {
         User oldUser = userRepository.findById(id);
-        if (oldUser.getVorname() != null) {
+        if (user.getVorname() != null) {
             oldUser.setVorname(user.getVorname());
         }
-        if (oldUser.getNachname() != null) {
+        if (user.getNachname() != null) {
             oldUser.setNachname(user.getNachname());
         }
-        if (oldUser.getEmail() != null) {
+        if (user.getEmail() != null) {
             oldUser.setEmail(user.getEmail());
         }
-        if (oldUser.getPwd() != null) {
+        if (user.getPwd() != null) {
             oldUser.setPwd(passwordEncoder.encode(user.getPwd()));
-        }
-        if (oldUser.getUserlevel() != user.getUserlevel()) {
+        } 
+        if (user.getUserlevel() != user.getUserlevel()) {
             oldUser.setUserlevel(user.getUserlevel());
         }
-
+        if (user.getIs2fa() != oldUser.getIs2fa()) {
+            oldUser.setIs2fa(user.getIs2fa());
+        }
+        if (user.getSecretcode() != null) {
+            oldUser.setSecretcode(user.getSecretcode());
+        }
         return userRepository.save(oldUser);
     }
 

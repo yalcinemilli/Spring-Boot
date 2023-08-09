@@ -14,10 +14,12 @@ import de.camovation.rauchboxapi.repository.EmaRepository;
 import de.camovation.rauchboxapi.repository.KontaktRepository;
 import de.camovation.rauchboxapi.repository.KundenRepository;
 import de.camovation.rauchboxapi.repository.VideoRepository;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 
 @Service
 @RequiredArgsConstructor
+@Transactional
 public class KundenService {
 
     private final AdressenRepository adressenRepository;
@@ -75,10 +77,10 @@ public class KundenService {
 
     public void deleteKunde(int id) {
 
-        adressenRepository.deleteByKundenid(id);
-        emaRepository.deleteByKundenid(id);
-        kontaktRepository.deleteByKundenid(id);
-        videoRepository.deleteByKundenid(id);
+        adressenRepository.deleteAdresseByKundenid(id);
+        emaRepository.deleteEmaByKundenid(id);
+        kontaktRepository.deleteKontaktByKundenid(id);
+        videoRepository.deleteVideoByKundenid(id);
         kundeRepository.deleteById(id);
     }
 

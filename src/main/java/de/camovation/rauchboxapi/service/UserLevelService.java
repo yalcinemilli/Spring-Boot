@@ -4,10 +4,12 @@ import org.springframework.stereotype.Service;
 
 import de.camovation.rauchboxapi.models.UserLevel;
 import de.camovation.rauchboxapi.repository.UserLevelRepository;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 
 @Service
 @RequiredArgsConstructor
+@Transactional
 public class UserLevelService {
     
     private final UserLevelRepository userLevelRepository;

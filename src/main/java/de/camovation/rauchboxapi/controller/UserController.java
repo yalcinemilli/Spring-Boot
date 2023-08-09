@@ -54,6 +54,12 @@ public class UserController {
         }
     }
 
+    @GetMapping("/{id}")
+    public ResponseEntity<UserResponse> getUserbyId(@PathVariable int id) {
+
+            UserResponse response = userMapper.mapToResponse(userRepository.findById(id));
+            return new ResponseEntity<>(response, HttpStatus.OK);
+    }
 
     @PostMapping("/erstellen")
     public ResponseEntity<UserResponse> createUser(@RequestBody @Valid User request) {

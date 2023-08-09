@@ -32,4 +32,8 @@ public class User {
     private int userlevel;
 
     private Timestamp lastlogin;
+    
+    private String secretcode;
+    
+    private int is2fa = 0;
 }

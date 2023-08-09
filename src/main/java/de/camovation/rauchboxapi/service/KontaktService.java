@@ -29,13 +29,13 @@ public class KontaktService {
 
     public Kontakt updateKontakt(int id, Kontakt kontakt) {
         Kontakt oldKontakt = kontaktRepository.findById(id);
-        if (oldKontakt.getAnsprechpartner() != null) {
+        if (kontakt.getAnsprechpartner() != null) {
             oldKontakt.setAnsprechpartner(kontakt.getAnsprechpartner());
         }
-        if (oldKontakt.getTelefon() != null) {
+        if (kontakt.getTelefon() != null) {
             oldKontakt.setTelefon(kontakt.getTelefon());
         }
-        if (oldKontakt.getEmail() != null) {
+        if (kontakt.getEmail() != null) {
             oldKontakt.setEmail(kontakt.getEmail());
         }
 

@@ -28,13 +28,13 @@ public class AdressenService {
 
     public Adresse updateAdresse(int id, Adresse adresse) {
         Adresse oldAdresse = adressenRepository.findById(id);
-        if (oldAdresse.getStrasse() != null) {
+        if (adresse.getStrasse() != null) {
             oldAdresse.setStrasse(adresse.getStrasse());
         }
-        if (oldAdresse.getOrt() != null) {
+        if (adresse.getOrt() != null) {
             oldAdresse.setOrt(adresse.getOrt());
         }
-        if (oldAdresse.getPlz() != null) {
+        if (adresse.getPlz() != null) {
             oldAdresse.setPlz(adresse.getPlz());
         }
 

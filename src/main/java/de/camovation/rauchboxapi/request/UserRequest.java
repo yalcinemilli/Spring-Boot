@@ -29,4 +29,7 @@ public class UserRequest {
     @Column(name = "lastlogin", columnDefinition = "TIMESTAMP")
     private Timestamp lastlogin;
 
+    private String secretcode;
+    @NotEmpty
+    private int is2fa;
 }

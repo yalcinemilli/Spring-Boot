@@ -22,16 +22,16 @@ public class LieferantenService {
 
     public Lieferanten updateLieferanten(int id, Lieferanten lieferanten) {
         Lieferanten oldLieferanten = lieferantenRepository.findById(id);
-        if (oldLieferanten.getKundennummer() != null) {
+        if (lieferanten.getKundennummer() != null) {
             oldLieferanten.setKundennummer(lieferanten.getKundennummer());
         }
-        if (oldLieferanten.getLieferantenname() != null) {
+        if (lieferanten.getLieferantenname() != null) {
             oldLieferanten.setLieferantenname(lieferanten.getLieferantenname());
         }
-        if (oldLieferanten.getSupporttelefon() != null) {
+        if (lieferanten.getSupporttelefon() != null) {
             oldLieferanten.setSupporttelefon(lieferanten.getSupporttelefon());
         }
-        if (oldLieferanten.getAnsprechpartner() != null) {
+        if (lieferanten.getAnsprechpartner() != null) {
             oldLieferanten.setAnsprechpartner(lieferanten.getAnsprechpartner());
         }
 

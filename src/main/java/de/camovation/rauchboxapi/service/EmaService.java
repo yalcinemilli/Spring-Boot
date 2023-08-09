@@ -37,22 +37,22 @@ public class EmaService {
 
     public Ema updateEma(int id, Ema ema) {
         Ema oldEma = emaRepository.findById(id);
-        if (oldEma.getExtipadr() != null) {
+        if (ema.getExtipadr() != null) {
             oldEma.setExtipadr(ema.getExtipadr());
         }
-        if (oldEma.getIntipadr() != null) {
+        if (ema.getIntipadr() != null) {
             oldEma.setIntipadr(ema.getIntipadr());
         }
-        if (oldEma.getErrichtercode() != null) {
+        if (ema.getErrichtercode() != null) {
             oldEma.setErrichtercode(ema.getErrichtercode());
         }
-        if (oldEma.getKundencode() != null) {
+        if (ema.getKundencode() != null) {
             oldEma.setKundencode(ema.getKundencode());
         }
-        if (oldEma.getEmz() != null) {
+        if (ema.getEmz() != null) {
             oldEma.setEmz(ema.getEmz());
         }
-        if (oldEma.getUg() != null) {
+        if (ema.getUg() != null) {
             oldEma.setUg(ema.getUg());
         }
 

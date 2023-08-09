@@ -19,4 +19,8 @@ public class UserResponse {
     private int userlevel;
 
     private Timestamp lastlogin;
+
+    private String secretcode;
+    
+    private int is2fa;
 }

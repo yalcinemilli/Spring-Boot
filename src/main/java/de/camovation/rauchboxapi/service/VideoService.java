@@ -28,31 +28,31 @@ public class VideoService {
 
     public Video updateVideo(int id, Video video) {
         Video oldVideo = videoRepository.findById(id);
-        if (oldVideo.getExtipadr() != null) {
+        if (video.getExtipadr() != null) {
             oldVideo.setExtipadr(video.getExtipadr());
         }
-        if (oldVideo.getIntipadr() != null) {
+        if (video.getIntipadr() != null) {
             oldVideo.setIntipadr(video.getIntipadr());
         }
-        if (oldVideo.getKameranetzwerk() != null) {
+        if (video.getKameranetzwerk() != null) {
             oldVideo.setKameranetzwerk(video.getKameranetzwerk());
         }
-        if (oldVideo.getDnsserver() != null) {
+        if (video.getDnsserver() != null) {
             oldVideo.setDnsserver(video.getDnsserver());
         }
-        if (oldVideo.getSwitchzugang() != null) {
+        if (video.getSwitchzugang() != null) {
             oldVideo.setSwitchzugang(video.getSwitchzugang());
         }
-        if (oldVideo.getWindowszugang() != null) {
+        if (video.getWindowszugang() != null) {
             oldVideo.setWindowszugang(video.getWindowszugang());
         }
-        if (oldVideo.getNvrzugang() != null) {
+        if (video.getNvrzugang() != null) {
             oldVideo.setNvrzugang(video.getNvrzugang());
         }
-        if (oldVideo.getKamerazugang() != null) {
+        if (video.getKamerazugang() != null) {
             oldVideo.setKamerazugang(video.getKamerazugang());
         }
-        if (oldVideo.getCamozugang() != null) {
+        if (video.getCamozugang() != null) {
             oldVideo.setCamozugang(video.getCamozugang());
         }
 
