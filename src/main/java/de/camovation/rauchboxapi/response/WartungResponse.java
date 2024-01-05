@@ -5,15 +5,15 @@ import java.util.List;
 import lombok.Data;
 
 @Data
-public class EmaResponse {
-
+public class WartungResponse {
+    
     private int id;
 
-    private String extipadr;
+    private int kundenid;
 
-    private String intipadr;
+    private int vertrag;
 
-    private String bezeichnung;
+    private int vertraginterval;
 
     private List<CustomFieldResponse> customfields;
 }

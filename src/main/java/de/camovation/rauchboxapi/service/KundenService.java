@@ -52,15 +52,6 @@ public class KundenService {
                     "Kunde mit dem Namen %s existiert bereits".formatted(kunde.getKundenname())
             );
         }
-
-        Optional<Kunde> optionalIdentnummer = kundeRepository.findByIdentnummer(kunde.getIdentnummer());
-        if (optionalIdentnummer.isPresent()) {
-            throw new ServiceFehlerHandler(
-                    ErrorCode.CUSTOMER_EXISTS,
-                    "Kunde mit der Identnummer %s existiert bereits".formatted(kunde.getIdentnummer())
-            );
-        }
-
         return kundeRepository.save(kunde);
     }
 
@@ -68,9 +59,6 @@ public class KundenService {
         Kunde oldKunde = getKundeById(id);
         if (kunde.getKundenname() != null) {
             oldKunde.setKundenname(kunde.getKundenname());
-        }
-        if (kunde.getIdentnummer() != null) {
-            oldKunde.setIdentnummer(kunde.getIdentnummer());
         }
         return kundeRepository.save(oldKunde);
     }

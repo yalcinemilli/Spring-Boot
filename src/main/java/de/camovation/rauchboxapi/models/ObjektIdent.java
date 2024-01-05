@@ -1,6 +1,5 @@
 package de.camovation.rauchboxapi.models;
 
-
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
@@ -8,20 +7,24 @@ import jakarta.persistence.Table;
 import lombok.Data;
 
 @Entity
-@Table(name = "adressen")
+@Table(name = "objektident")
 @Data
-public class Adresse {
- 
+public class ObjektIdent {
+    
+
     @Id
     @GeneratedValue
     private int id;
-    
+
     private int kundenid;
-    
-    private String strasse;
 
-    private String plz;
+    private int identnummer;
 
-    private String ort;
-    
+    private String leitstelle;
+
+    private String objektart;
+
+    private int Adressenid;
+
+
 }

@@ -14,17 +14,6 @@ public class VideoRequest {
 
     private String intipadr;
 
-    private String kameranetzwerk;
-
-    private String dnsserver;
-
-    private String switchzugang;
-
-    private String windowszugang;
-
-    private String nvrzugang;
-
-    private String kamerazugang;
-
-    private String camozugang;
+    @NotEmpty
+    private String bezeichnung;
 }

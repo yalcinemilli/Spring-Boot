@@ -8,9 +8,8 @@ import de.camovation.rauchboxapi.models.Kunde;
 
 
 
-public interface KundenRepository extends JpaRepository<Kunde, String>{
+public interface KundenRepository extends JpaRepository<Kunde, Integer>{
      Optional<Kunde> findByKundenname(String kundenname);
      Optional<Kunde> findById(int id);
-     Optional<Kunde> findByIdentnummer(String identnummer);
      void deleteById(int id);
 }

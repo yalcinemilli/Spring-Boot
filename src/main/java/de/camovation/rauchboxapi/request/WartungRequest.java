@@ -4,17 +4,17 @@ import jakarta.validation.constraints.NotEmpty;
 import lombok.Data;
 
 @Data
-public class EmaRequest {
+public class WartungRequest {
     
     private int id;
 
-    private String extipadr;
-
-    private String intipadr;
-
-    @NotEmpty
-    private String bezeichnung;
-
     @NotEmpty
     private int kundenid;
+
+    @NotEmpty
+    private int vertrag;
+
+    @NotEmpty
+    private int vertraginterval;
+
 }

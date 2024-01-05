@@ -14,4 +14,6 @@ public class KontaktResponse {
 
     private String email;
     
+    private String notizen;
+
 }

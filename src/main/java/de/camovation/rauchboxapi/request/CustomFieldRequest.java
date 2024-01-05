@@ -4,17 +4,16 @@ import jakarta.validation.constraints.NotEmpty;
 import lombok.Data;
 
 @Data
-public class EmaRequest {
+public class CustomFieldRequest {
     
     private int id;
-
-    private String extipadr;
-
-    private String intipadr;
+    
+    @NotEmpty
+    private String objectid;
 
     @NotEmpty
-    private String bezeichnung;
-
+    private String fieldname;
+    
     @NotEmpty
-    private int kundenid;
+    private String fieldvalue;
 }

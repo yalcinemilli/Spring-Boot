@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -13,11 +14,13 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import de.camovation.rauchboxapi.mapper.CustomFieldMapper;
 import de.camovation.rauchboxapi.mapper.EmaMapper;
 import de.camovation.rauchboxapi.models.Ema;
 import de.camovation.rauchboxapi.repository.EmaRepository;
 import de.camovation.rauchboxapi.response.EmaResponse;
 import de.camovation.rauchboxapi.response.ListResponse;
+import de.camovation.rauchboxapi.service.CustomFieldService;
 import de.camovation.rauchboxapi.service.EmaService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -25,18 +28,25 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 @RestController
 @RequestMapping("/v1/ema")
+@CrossOrigin(origins = "http://localhost:4200")
 public class EmaController {
     
     private final EmaRepository emaRepository;
     private final EmaMapper emaMapper;
     private final EmaService emaService;
-    
+    private final CustomFieldMapper customFieldMapper;
+    private final CustomFieldService customFieldService;
+
     @GetMapping("/{id}")
       public ResponseEntity<ListResponse<EmaResponse>> getEmas(@PathVariable int id) {
         List<Ema> ema = emaRepository.findByKundenid(id);
         
         List<EmaResponse> list = emaMapper.mapToResponseListe(ema);
-
+        list.forEach(emaResponse -> {
+            emaResponse.setCustomfields(
+                
+            customFieldMapper.mapToResponseListe(customFieldService.getCustomFields("ema" + id)));
+        });
         ListResponse<EmaResponse> response = new ListResponse<>(list, list.size());
 
         return new ResponseEntity<>(response, HttpStatus.OK);

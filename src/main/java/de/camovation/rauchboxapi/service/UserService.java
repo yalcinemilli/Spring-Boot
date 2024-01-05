@@ -53,7 +53,7 @@ public class UserService {
         if (user.getPwd() != null) {
             oldUser.setPwd(passwordEncoder.encode(user.getPwd()));
         } 
-        if (user.getUserlevel() != user.getUserlevel()) {
+        if (user.getUserlevel() != oldUser.getUserlevel()) {
             oldUser.setUserlevel(user.getUserlevel());
         }
         if (user.getIs2fa() != oldUser.getIs2fa()) {

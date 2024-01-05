@@ -15,8 +15,6 @@ public class Kunde {
     @GeneratedValue
     private int id;
     
-    private String identnummer;
-    
     private String kundenname;
     
 }

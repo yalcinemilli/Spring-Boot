@@ -37,7 +37,7 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
-    image: rauchboxapi:1.0.0
+    image: rauchboxapi:1.5.0
     restart: on-failure
     ports:
       - 4001:8080

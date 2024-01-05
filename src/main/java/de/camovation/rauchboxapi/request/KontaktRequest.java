@@ -20,5 +20,8 @@ public class KontaktRequest {
 
     @Email
     private String email;
+
+    private String notizen;
+
     
 }

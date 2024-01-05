@@ -1,5 +1,7 @@
 package de.camovation.rauchboxapi.response;
 
+import java.util.List;
+
 import lombok.Data;
 
 @Data
@@ -12,17 +14,7 @@ public class VideoResponse {
 
     private String intipadr;
 
-    private String kameranetzwerk;
+    private String bezeichnung;
 
-    private String dnsserver;
-
-    private String switchzugang;
-
-    private String windowszugang;
-
-    private String nvrzugang;
-
-    private String kamerazugang;
-
-    private String camozugang;
+    private List<CustomFieldResponse> customfields;
 }

@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -19,19 +20,33 @@ import de.camovation.rauchboxapi.models.Kunde;
 import de.camovation.rauchboxapi.repository.KundenRepository;
 import de.camovation.rauchboxapi.response.KundeResponse;
 import de.camovation.rauchboxapi.response.ListResponse;
+import de.camovation.rauchboxapi.service.AdressenService;
+import de.camovation.rauchboxapi.service.EmaService;
+import de.camovation.rauchboxapi.service.KontaktService;
 import de.camovation.rauchboxapi.service.KundenService;
+import de.camovation.rauchboxapi.service.ObjektIdentService;
+import de.camovation.rauchboxapi.service.VideoService;
+import de.camovation.rauchboxapi.service.WartungService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 
 
 @RestController
 @RequestMapping("/v1/kundendaten")
+@CrossOrigin(origins = "http://localhost:4200")
 @RequiredArgsConstructor
 public class KundenController {
     
     private final KundenService kundenService;
     private final KundenMapper kundenMapper;
     private final KundenRepository kundenRepository;
+    private final EmaService emaService;
+    private final VideoService videoService;
+    private final AdressenService adressenService;
+    private final KontaktService kontaktService;
+    private final WartungService wartungService;
+    private final ObjektIdentService objektIdentService;
+
 
     @GetMapping("/all")
     public ResponseEntity<ListResponse<KundeResponse>> getKunden(Integer page, Integer size) {
@@ -60,6 +75,12 @@ public class KundenController {
     public ResponseEntity<KundeResponse> getKundeById(@PathVariable int id) {
         Kunde kunde = kundenService.getKundeById(id);
         KundeResponse response = kundenMapper.mapToResponse(kunde);
+        response.setAdressen(adressenService.getAdresse(id));
+        response.setKontakte(kontaktService.getKontakt(id));
+        response.setEmas(emaService.getEmaById(id));
+        response.setVideos(videoService.getVideo(id));
+        response.setWartungen(wartungService.getWartungById(id));
+        response.setObjektidents(objektIdentService.getObjektIdent(id));
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 

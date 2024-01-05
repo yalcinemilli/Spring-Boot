@@ -4,15 +4,11 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
-import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 
 @Entity
 @Table(name = "kontakte")
 @Data
-@AllArgsConstructor
-@NoArgsConstructor
 public class Kontakt {
     
     @Id
@@ -27,4 +23,5 @@ public class Kontakt {
 
     private String email;
     
+    private String notizen;
 }

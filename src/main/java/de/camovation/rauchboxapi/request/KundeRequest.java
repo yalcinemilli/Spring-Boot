@@ -9,8 +9,6 @@ public class KundeRequest {
     private int id;
     
     @NotEmpty
-    private String identnummer;
-    @NotEmpty
     private String kundenname;
 
 }
