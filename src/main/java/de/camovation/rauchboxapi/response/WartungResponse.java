@@ -12,8 +12,14 @@ public class WartungResponse {
     private int kundenid;
 
     private int vertrag;
+    
+    private int first_quartal;
 
-    private int vertraginterval;
+    private int second_quartal;
+
+    private int third_quartal;
+
+    private int fourth_quartal;
 
     private List<CustomFieldResponse> customfields;
 }

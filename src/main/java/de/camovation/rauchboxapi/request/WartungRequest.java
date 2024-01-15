@@ -15,6 +15,14 @@ public class WartungRequest {
     private int vertrag;
 
     @NotEmpty
-    private int vertraginterval;
+    private int first_quartal;
 
+    @NotEmpty
+    private int second_quartal;
+
+    @NotEmpty
+    private int third_quartal;
+
+    @NotEmpty
+    private int fourth_quartal;
 }

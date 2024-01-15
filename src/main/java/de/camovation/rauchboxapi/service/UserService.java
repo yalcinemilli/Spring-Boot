@@ -15,7 +15,6 @@ public class UserService {
 
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
-
     public User getUserById(Integer id) {
         return userRepository
                 .findById(id)
@@ -50,10 +49,7 @@ public class UserService {
         if (user.getEmail() != null) {
             oldUser.setEmail(user.getEmail());
         }
-        if (user.getPwd() != null) {
-            oldUser.setPwd(passwordEncoder.encode(user.getPwd()));
-        } 
-        if (user.getUserlevel() != oldUser.getUserlevel()) {
+        if (user.getUserlevel() != oldUser.getUserlevel() && user.getUserlevel() != 0) {
             oldUser.setUserlevel(user.getUserlevel());
         }
         if (user.getIs2fa() != oldUser.getIs2fa()) {

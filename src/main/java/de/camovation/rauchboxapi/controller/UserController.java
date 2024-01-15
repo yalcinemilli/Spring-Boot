@@ -1,6 +1,8 @@
 package de.camovation.rauchboxapi.controller;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -21,6 +23,8 @@ import de.camovation.rauchboxapi.repository.UserRepository;
 import de.camovation.rauchboxapi.response.ListResponse;
 import de.camovation.rauchboxapi.response.UserResponse;
 import de.camovation.rauchboxapi.service.UserService;
+import de.camovation.rauchboxapi.service.mfa.MFATokenManager;
+import dev.samstevens.totp.exceptions.QrGenerationException;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 
@@ -32,7 +36,7 @@ public class UserController {
     
     private final UserRepository userRepository;
     private final UserMapper userMapper;
-    
+    private final MFATokenManager mfaTokenManager;
     private final UserService userService;
     private final PasswordEncoder passwordEncoder;
 
@@ -43,17 +47,55 @@ public class UserController {
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
-    @GetMapping("/login/{email}/{password}")
-    public ResponseEntity<UserResponse> login(@PathVariable String email,@PathVariable String password) {
-
+        @GetMapping("/login/{email}/{password}")
+    public ResponseEntity<?> login(@PathVariable String email,@PathVariable String password) {
+        UserResponse response = userMapper.mapToResponse(userRepository.findByEmail(email));
+        if (response == null) {
+            return new ResponseEntity<>("E-Mail Adresse nicht gefunden!", HttpStatus.UNAUTHORIZED);
+        }
         boolean isPasswordMatch = passwordEncoder.matches(password, userRepository.findByEmail(email).getPwd());
         if (isPasswordMatch) {
-            UserResponse response = userMapper.mapToResponse(userRepository.findByEmail(email));
             userService.updateTimestamp(response.getId());
             return new ResponseEntity<>(response, HttpStatus.OK);
         } else {
-            return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+            return new ResponseEntity<>("Passwort ist falsch", HttpStatus.UNAUTHORIZED);
         }
+    }
+
+    @GetMapping("/login/{email}/{password}/{code}")
+    public ResponseEntity<?> loginwith2FA(@PathVariable String email,@PathVariable String password, @PathVariable String code) {
+        UserResponse response = userMapper.mapToResponse(userRepository.findByEmail(email));
+        if (response == null) {
+            return new ResponseEntity<>("E-Mail Adresse nicht gefunden!", HttpStatus.UNAUTHORIZED);
+        }
+        boolean isPasswordMatch = passwordEncoder.matches(password, userRepository.findByEmail(email).getPwd());
+        if (isPasswordMatch) {
+            if (response.getIs2fa() == 1) {
+                if (mfaTokenManager.verifyTotp(code, response.getSecretcode())){
+                    userService.updateTimestamp(response.getId());
+                    return new ResponseEntity<>(response, HttpStatus.OK);
+                }
+            }
+            return new ResponseEntity<>(response, HttpStatus.UNAUTHORIZED);
+            } else {
+            return new ResponseEntity<>("Passwort ist falsch", HttpStatus.UNAUTHORIZED);
+            }
+        }
+
+    @GetMapping("/login/qrcode")
+    public ResponseEntity<Map<String, String>> getQRAndSecretCode() throws QrGenerationException {
+        Map<String, String> map = new HashMap<>();
+        String secret = mfaTokenManager.generateSecretKey();
+        String qrCode = mfaTokenManager.getQRCode(secret);
+        map.put("secret", secret);
+        map.put("qrCode", qrCode);
+        return new ResponseEntity<>(map, HttpStatus.OK);
+    }
+
+    @GetMapping("/login/verify/{secret}/{code}")
+    public ResponseEntity<Boolean> verifyCode(@PathVariable String secret, @PathVariable String code) {
+        boolean isCodeValid = mfaTokenManager.verifyTotp(code, secret);
+        return new ResponseEntity<>(isCodeValid, HttpStatus.OK);
     }
 
     @GetMapping("/{id}")
@@ -95,4 +137,5 @@ public class UserController {
         userService.deleteUserById(id);
         return new ResponseEntity<>(HttpStatus.OK);
     }
+
 }

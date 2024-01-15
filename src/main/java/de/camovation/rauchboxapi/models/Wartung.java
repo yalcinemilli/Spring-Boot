@@ -17,8 +17,13 @@ public class Wartung {
 
     private int kundenid;
 
-    private int vertrag;
+    private int vertrag = 0;
 
-    private int vertraginterval = 0;
+    private int first_quartal = 0;
 
+    private int second_quartal = 0;
+
+    private int third_quartal = 0;
+
+    private int fourth_quartal = 0;
 }

@@ -51,8 +51,17 @@ public class WartungService {
         if (wartung.getVertrag() != oldWartung.getVertrag()) {
             oldWartung.setVertrag(wartung.getVertrag());
         }
-        if (wartung.getVertraginterval() != oldWartung.getVertraginterval()) {
-            oldWartung.setVertraginterval(wartung.getVertraginterval());
+        if (wartung.getFirst_quartal() != oldWartung.getFirst_quartal()) {
+            oldWartung.setFirst_quartal(wartung.getFirst_quartal());
+        }
+        if (wartung.getSecond_quartal() != oldWartung.getSecond_quartal()) {
+            oldWartung.setSecond_quartal(wartung.getSecond_quartal());
+        }
+        if (wartung.getThird_quartal() != oldWartung.getThird_quartal()) {
+            oldWartung.setThird_quartal(wartung.getThird_quartal());
+        }
+        if (wartung.getFourth_quartal() != oldWartung.getFourth_quartal()) {
+            oldWartung.setFourth_quartal(wartung.getFourth_quartal());
         }
         return wartungRepository.save(oldWartung);
     }
