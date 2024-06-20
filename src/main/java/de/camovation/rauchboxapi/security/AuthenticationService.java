@@ -8,7 +8,7 @@ import jakarta.servlet.http.HttpServletRequest;
 
 public class AuthenticationService {
       private static final String AUTH_TOKEN_HEADER_NAME = "X-API-KEY";
-    private static final String AUTH_TOKEN = "C4m0v47i0n";
+    private static final String AUTH_TOKEN = "*********";
 
     public static Authentication getAuthentication(HttpServletRequest request) {
         String apiKey = request.getHeader(AUTH_TOKEN_HEADER_NAME);
